@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tasks</title>
+</head>
+<body>
+       <a href="{% url 'view' %}" style="float:right">Home</a>
+        <ul>
+       {% for task in tasks %}
+            <a href="{% url 'viewtaks' %}">
+                <li>{{task.taskid}} </li>
+            </a>
+
+            <a href="{% url 'edittask' %}">Edit</a>
+            <a href="{% url 'deletetask' %}">Delete</a>
+        </ul>
+ <a href="{% url 'addtask' %}">New Task</a>
+</body>
+</html>

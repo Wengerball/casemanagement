@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+   <button formaction="{% url 'view.html' %}">Login</button>
+</form>
+</body>
+</html>

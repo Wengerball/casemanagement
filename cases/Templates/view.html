@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cases</title>
+</head>
+<body>
+    <a href="{% url 'view' %}" style="float:right">Home</a>
+    <ul>
+       {% for case in cases %}
+            <a href="{% url '' %}">
+                <li>{{case.caseid}} </li>
+            </a>
+            <a href="{% url 'viewtask' %}">Tasks</a>
+            <a href="{% url 'editcase' %}">Edit</a>
+            <a href="{% url 'deletecase' %}">Delete</a>
+    </ul>
+
+
+    <a href="{% url 'addcase' %}">New Task</a>
+</body>
+</html>

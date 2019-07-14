@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Edit Case Details</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+   <button formaction="{% url 'view' %}">Done</button>
+</form>
+
+<form><button formaction="{% url 'addtask' %}">Add Task</button></form>
+</body>
+</html>
