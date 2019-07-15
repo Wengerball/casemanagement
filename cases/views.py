@@ -43,7 +43,7 @@ def addcase(request):
         form = CaseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/dashboard')
+            return redirect('/view.html')
     else:
         form = CaseForm()
     return render(request, 'addcase.html', {'form': form})

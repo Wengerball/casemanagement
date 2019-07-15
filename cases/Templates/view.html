@@ -5,7 +5,7 @@
     <title>Cases</title>
 </head>
 <body>
-    <a href="{% url 'view.html' %}" style="float:right">Home</a>
+    <a href="{% url 'dashboard' %}" style="float:right">Home</a>
     <ul>
        {% for case in cases %}
             <a href="{% url '' %}">
@@ -18,6 +18,6 @@
     </ul>
 
 
-    <a href="{% url 'addcase' %}">New Task</a>
+    <a href="{% url 'addcase' %}">New Case</a>
 </body>
 </html>

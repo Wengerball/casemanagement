@@ -2,10 +2,10 @@
 <html>
 <body>
 <h2>Add Case </h2>
-<form method="post">
+<form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-   <button formaction="{% url 'view.html' %}">Add Case</button>
+   <button formaction="{% url 'dashboard' %}">Add Case</button>
 </form>
 </body>
 </html>
