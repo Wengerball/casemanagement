@@ -49,7 +49,7 @@ def addcase(request):
     return render(request, 'addcase.html', {'form': form})
 
 
-def addtask(request,id1):
+def addtask(request, id1):
     if request.method == "POST":
         form=TaskForm(request.POST)
         if form.is_valid():
@@ -63,13 +63,12 @@ def addtask(request,id1):
 
 
 def viewtask(request, id1):
-    print ('a')
     tasks = Tasks.objects.filter(caseid=id1)
     return render(request, 'viewtask.html', {'tasks': tasks})
 
 
-def editcase(request, id1):
-    case = Cases.objects.filter(caseid=id1)
+def editcase(request, id1, queryset=None):
+    case = Cases.objects.filter(caseid=id1).first()
     if request.method == "POST":
         form = CaseForm(request.POST, instance=case)
         if form.is_valid():
@@ -80,13 +79,13 @@ def editcase(request, id1):
     return render(request, 'editcase.html', {'form': form})
 
 
-def edittask(request, name):
-    task = Tasks.objects.filter(pk=name)
+def edittask(request, name, queryset=None):
+    task = Tasks.objects.filter(taskname=name).first()
     if request.method == "POST":
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return redirect('/viewtask')  
+            return redirect('/view')
     
     form = TaskForm(instance=task)
     return render(request, 'edittask.html', {'form': form})    

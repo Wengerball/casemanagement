@@ -5,9 +5,8 @@
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-   <button formaction="{% url 'view' %}">Done</button>
+   <button formaction="">Done</button>
 </form>
 
-<form><button formaction="{% url 'addtask' %}">Add Task</button></form>
 </body>
 </html>
