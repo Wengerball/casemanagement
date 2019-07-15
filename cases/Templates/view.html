@@ -5,7 +5,7 @@
     <title>Cases</title>
 </head>
 <body>
-    <a href="{% url 'view' %}" style="float:right">Home</a>
+    <a href="{% url 'view.html' %}" style="float:right">Home</a>
     <ul>
        {% for case in cases %}
             <a href="{% url '' %}">
@@ -14,6 +14,7 @@
             <a href="{% url 'viewtask' %}">Tasks</a>
             <a href="{% url 'editcase' %}">Edit</a>
             <a href="{% url 'deletecase' %}">Delete</a>
+        {% endfor %}
     </ul>
 
 

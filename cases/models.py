@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Cases(models.Model):
-    caseid = models.IntegerField(max_length=20)
+    caseid = models.IntegerField()
     casename = models.CharField(max_length=20)
     casedate = models.DateField()
     casedesc = models.TextField(max_length=200)
@@ -14,7 +14,7 @@ class Cases(models.Model):
 
 
 class Tasks(models.Model):
-    caseid = models.IntegerField(max_length=20)
+    caseid = models.IntegerField()
     taskname = models.CharField(max_length=20)
     taskdate = models.DateField()
     taskdesc = models.TextField(max_length=200)

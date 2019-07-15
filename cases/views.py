@@ -4,7 +4,7 @@ from cases.forms import TaskForm
 from cases.forms import UserForm
 from cases.models import Cases
 from cases.models import Tasks
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 
 # Create your views here.
 
@@ -12,20 +12,22 @@ from django.contrib.auth import authenticate, login
 def redirection(request):
     user = request.user
     if user.is_authenticated==False:
-        return redirect('/login.html')
+        return redirect('Templates/login.html')
     return redirect("/view.html")
 
 
-def login(request):
+def auth_login(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password,request=request)
-        if user is not None:
-            login(request, user)
-            return redirect('/view.html')
-        else:
-            return redirect('/login.html')
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('/view.html')
+            else:
+                return redirect('/login.html')
 
     form = UserForm()
     return render(request, 'login.html', {'form': form})

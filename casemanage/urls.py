@@ -21,8 +21,8 @@ from django.conf.urls import url,include
 urlpatterns = [
     path('', views.redirection),
     url('admin/', admin.site.urls),
-    url('login/', views.login),
-    url('view/', views.dashboard),
+    url('login.html/', views.auth_login),
+    url('view.html/', views.dashboard),
     path('addcase/', views.addcase),
     path('addtask/<int:id>/', views.addtask),
     path('viewtask/<int:id>/', views.viewtask),
