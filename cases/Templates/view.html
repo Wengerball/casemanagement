@@ -8,12 +8,18 @@
     <a href="{% url 'dashboard' %}" style="float:right">Home</a>
     <ul>
        {% for case in cases %}
-            <a href="{% url '' %}">
+
                 <li>{{case.caseid}} </li>
-            </a>
-            <a href="{% url 'viewtask' %}">Tasks</a>
-            <a href="{% url 'editcase' %}">Edit</a>
-            <a href="{% url 'deletecase' %}">Delete</a>
+                <li>{{case.casename}} </li>
+                <li>{{case.casedate}} </li>
+                <li>{{case.casedesc}} </li>
+                <li>{{case.casemanager}} </li>
+
+                <a href="/viewtask/{{case.caseid}}">Tasks</a>
+                <a href="/addtask/{{case.caseid}}">Add Tasks</a>
+                <a href="/editcase/{{case.caseid}}">Edit Case</a>
+                <a href="/deletecase/{{case.caseid}}">Delete</a>
+
         {% endfor %}
     </ul>
 

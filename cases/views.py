@@ -4,7 +4,7 @@ from cases.forms import TaskForm
 from cases.forms import UserForm
 from cases.models import Cases
 from cases.models import Tasks
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -12,22 +12,20 @@ from django.contrib.auth import authenticate, login as auth_login
 def redirection(request):
     user = request.user
     if user.is_authenticated==False:
-        return redirect('Templates/login.html')
-    return redirect("/view.html")
+        return redirect('/login')
+    return redirect("/view")
 
 
 def auth_login(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth_login(request, user)
-                return redirect('/view.html')
-            else:
-                return redirect('/login.html')
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request=request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/view')
+        else:
+            return redirect('/login')
 
     form = UserForm()
     return render(request, 'login.html', {'form': form})
@@ -42,27 +40,30 @@ def addcase(request):
     if request.method == "POST":
         form = CaseForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/view.html')
+            p = form.save(commit=False)
+            p.casemanager = request.user.username
+            p.save()
+            return redirect('/view')
     else:
         form = CaseForm()
     return render(request, 'addcase.html', {'form': form})
 
 
-def addtask(request, id1):
+def addtask(request,id1):
     if request.method == "POST":
-        form = TaskForm(request.POST)
+        form=TaskForm(request.POST)
         if form.is_valid():
-            p = form.save(commit=False)
-            p.caseid = id1
+            p=form.save(commit=False)
+            p.caseid=id1
             p.save()
-            return redirect('/viewtask')
+            return redirect('/viewtask/'+str(id1))
     else:
         form = TaskForm()
     return render(request, 'addtask.html', {'form': form})
 
 
 def viewtask(request, id1):
+    print ('a')
     tasks = Tasks.objects.filter(caseid=id1)
     return render(request, 'viewtask.html', {'tasks': tasks})
 
@@ -79,16 +80,18 @@ def editcase(request, id1):
     return render(request, 'editcase.html', {'form': form})
 
 
-def edittask(request, id1):
-    task = Tasks.objects.filter(pk=id1)
+def edittask(request, name):
+    task = Tasks.objects.filter(pk=name)
     if request.method == "POST":
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
             return redirect('/viewtask')  
     
-    form = CaseForm(instance=case)
+    form = TaskForm(instance=task)
     return render(request, 'edittask.html', {'form': form})    
+
+# noinspection PyBroadException
 
 
 def case(request):
@@ -103,6 +106,8 @@ def case(request):
     else:
         form = CaseForm()
     return render(request, 'addcase.html', {'form': form})
+
+# noinspection PyBroadException
 
 
 def task(request):
@@ -119,23 +124,14 @@ def task(request):
     return render(request, 'addtask.html', {'form': form})
 
 
-def showcase(request):
-    case1 = Cases.objects.all()
-    return render(request, "view.html", {'cases': case1})
-
-
-def showtask(request):
-    task1 = Tasks.objects.all()
-    return render(request, "viewtask.html", {'tasks': task1})
-
-
 def deletecase(request, id1):
     querycase = Cases.objects.get(caseid=id1)
     querycase.delete()
-    return render(request, "view.html", {'cases': querycase})
+    return redirect('/view')
 
 
 def deletetask(request, name):
     querytask = Tasks.objects.get(taskname=name)
+    #print(querytask)
     querytask.delete()
-    return render(request, "viewtask.html", {'cases': querytask})
+    return redirect('/view')

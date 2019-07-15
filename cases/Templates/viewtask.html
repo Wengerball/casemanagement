@@ -5,16 +5,18 @@
     <title>My Tasks</title>
 </head>
 <body>
-       <a href="{% url 'view' %}" style="float:right">Home</a>
-        <ul>
+        <a href="/view" style="float:right">Cases</a>
+       <ul>
        {% for task in tasks %}
-            <a href="{% url 'viewtaks' %}">
-                <li>{{task.taskid}} </li>
-            </a>
+           <li>{{task.taskname}} </li>
+           <li>{{task.taskdate}}</li>
+           <li>{{task.taskdesc}} </li>
+           <li>{{task.taskmanager}} </li>
 
-            <a href="{% url 'edittask' %}">Edit</a>
-            <a href="{% url 'deletetask' %}">Delete</a>
+           <a href="/edittask/{{task.taskname}}">Edit</a>
+           <a href="/deletetask/{{task.taskname}}">Delete</a>
+        {% endfor %}
         </ul>
- <a href="{% url 'addtask' %}">New Task</a>
+
 </body>
 </html>

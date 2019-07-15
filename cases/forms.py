@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class CaseForm(forms.ModelForm):
     class Meta:
         model = Cases
-        fields = "__all__"
+        exclude = ['casemanager']
 
 
 class TaskForm(forms.ModelForm):

@@ -5,7 +5,7 @@
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-   <button formaction="{% url 'viewtask' %}">Done</button>
+   <button formaction="/addtask/">Done</button>
 </form>
 </body>
 </html>
