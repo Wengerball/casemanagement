@@ -51,9 +51,9 @@ def addcase(request):
 
 def addtask(request, id1):
     if request.method == "POST":
-        form=TaskForm(request.POST)
+        form = TaskForm(request.POST)
         if form.is_valid():
-            p=form.save(commit=False)
+            p = form.save(commit=False)
             p.caseid=id1
             p.save()
             return redirect('/viewtask/'+str(id1))
@@ -131,6 +131,5 @@ def deletecase(request, id1):
 
 def deletetask(request, name):
     querytask = Tasks.objects.get(taskname=name)
-    #print(querytask)
     querytask.delete()
     return redirect('/view')
